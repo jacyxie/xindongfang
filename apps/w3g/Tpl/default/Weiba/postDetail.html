@@ -68,8 +68,8 @@ function closeBox(){
 }
 </script>
 
-<div id="content" style="background:#fff">
-    <div id="weiba" data-title="{$weiba_name|getShort=6,'...'}" class="panel" data-selected="true"  data-menu="msgmenu" style="padding:0; background:#fff">
+<div id="content">
+    <div id="weiba" data-title="{$weiba_name|getShort=6,'...'}" class="panel" data-selected="true"  data-menu="msgmenu" style="padding:0;">
         <header>
             <div id="header-buttons">
                 <a href="javascript:history.go(-1);">
@@ -95,6 +95,7 @@ function closeBox(){
   <div class="mainWeiba">
     <!-- <div class="path"> <a href="{:U('w3g/Weiba/forum')}">微吧</a><i>></i><a href="{:U('w3g/Weiba/forum')}#{$cate}">{$cate}</a><i>></i><a href="{:U('w3g/Weiba/detail',array('weiba_id'=>$weiba_id))}"><span class="text-required">{$weiba_name}</span></a></div> -->
     <div class="postDetail">
+      <div style="background:#fff">
       <div class="pc_info">
         <dl>
           <dt><a href="{:U('w3g/Index/profile',array('uid'=>$post_detail['post_uid']))}" ><img src="{$post_detail.post_uid|getUserFace}"></a></dt>
@@ -116,13 +117,14 @@ function closeBox(){
       <div class="pc_title">{$post_detail.title}</div>
       <div class="pc_text content_imgs" id="detail_content_img" >
       	{$post_detail.content|bbcodewap}
-        <notempty name="post_detail['img_ids']">
+        <php>if($post_detail['img_ids']){</php> 
         <div class="ninepic_list">
             <volist name="post_detail['img_ids']" id="vo">
                 <img src="{:getImageUrlByAttachId($vo,200,200,true)}"/>
             </volist>
         </div>
-       </notempty>
+        <php>}</php> 
+      </div>
       </div>
       <div class="pc_reply">
         {:W('WeibaReply',array('tpl'=>'w3g', 'weiba_id'=>$post_detail['weiba_id'], 'post_id'=>$post_detail['post_id'], 'post_uid'=>$mid, 'feed_id'=>$post_detail['feed_id'], 'limit'=>'20', 'order'=>'DESC', 'addtoend'=>1,'type'=>$type))}
@@ -133,7 +135,6 @@ function closeBox(){
 <!--大图相册的效果-->
 <style type="text/css">
 #topcontrol{ display:none;}
-.weiba_detail_bar{ display:-webkit-box;}
 #content{ margin-bottom:3em;}
 /*大图相册的效果*/
 .device {

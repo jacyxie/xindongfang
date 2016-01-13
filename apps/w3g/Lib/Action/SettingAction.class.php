@@ -39,7 +39,23 @@ class SettingAction extends BaseAction {
 		$this->assign('user_info', $user);
 		$this->display();
 	}
-
+	//设置用户年纪
+	//字段待添加
+	public function setAge(){
+		$this->need_login ();
+		if($_POST['age']){
+			$map['uid'] = $this->mid;
+			D( 'user' )->where ( $map )->setField ( 'age', t($_POST['age']));
+			//清空用户数据缓存
+			model('User')->cleanCache($this->mid);
+			$re['status'] = 1;
+			$re['info'] = '保存成功';
+			echo json_encode($re);exit;
+		}
+		$user = getUserInfo($this->mid);
+		$this->assign('user_info', $user);
+		$this->display();
+	}
 	//设置用户地区
 	public function setArea(){
 		$this->need_login ();
@@ -337,7 +353,7 @@ class SettingAction extends BaseAction {
 					$feed_ids = getSubByKey($user_feeds, 'feed_id');
 					model('Feed')->cleanCache($feed_ids,$this->mid);
 				}
-				header('Location:'.U('w3g/Setting'));            	
+				header('Location:'.U('w3g/Setting/base'));            	
             }
         }
 

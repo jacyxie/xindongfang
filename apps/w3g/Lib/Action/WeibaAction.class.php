@@ -95,13 +95,21 @@ class WeibaAction extends BaseAction {
 		! $innerTop && $innerTop = array ();
 		! $list ['data'] && $list ['data'] = array ();
 		$list ['data'] = array_merge ( $topPostList, $innerTop, $list ['data'] );
-		
+		foreach($list['data'] as &$v){
+			if($v ['img_ids']){
+				$imgIds = explode(',', $v ['img_ids']);
+				$v ['img_ids'] = array_filter($imgIds);
+				
+			}
+		}
+		//dump($list['data']);
 		$post_uids = getSubByKey ( $list ['data'], 'post_uid' );
 		$reply_uids = getSubByKey ( $list ['data'], 'last_reply_uid' );
 		$uids = array_unique ( array_filter ( array_merge ( $post_uids, $reply_uids ) ) );
 		$this->_assignUserInfo ( $uids );
 
 		$this->_assignFollowState($weiba_id);
+		
 		// dump($list);
 		$this->assign ( 'list', $list );
 		$this->assign ( 'weiba_detail', $weiba_detail );
@@ -135,9 +143,10 @@ class WeibaAction extends BaseAction {
 				$post_detail ['attachInfo'] [$ak] = $_attach;
 			}
 		}
-		$imgIds = explode(',', $data ['img_ids']);
-		$post_detail ['img_ids'] = $imgIds;
-		
+		if($post_detail ['img_ids']){
+			$imgIds = explode(',', $post_detail ['img_ids']);
+			$post_detail ['img_ids'] = array_filter($imgIds);
+		}
 		$post_detail ['content'] = html_entity_decode ( $post_detail ['content'], ENT_QUOTES, 'UTF-8' );
 		
 		$this->assign ( 'post_detail', $post_detail );
@@ -176,6 +185,13 @@ class WeibaAction extends BaseAction {
 		$this->setTitle ( $post_detail ['title'] . ' - ' . $this->site ['site_name'] );
 		$this->setDescription ( getShort ( t ( bbcode ( $post_detail ['content'] ) ), 200 ) );
         $this->assign('type', $_GET['type']=='digg'?'digg':'time');
+		
+		$list_count = D('weiba_reply', 'weiba')->where(array('post_id'=>$post_id))->count();
+        $this->assign('list_count', $list_count);
+		
+		$is_digg = M('weiba_post_digg')->where('post_id='.$post_id.' and uid='.$this->mid)->find();
+		$this->assign('is_digg', $is_digg?1:0);
+		
 		$this->display ();
 	}
 	// 面包屑
@@ -490,6 +506,12 @@ class WeibaAction extends BaseAction {
 			// $images[0] && $post_list['data'][$k]['image'] = array_slice( $images , 0 , 5 );
 			$image = getEditorImages($v['content']);
 			!empty($image) && $post_list['data'][$k]['image'] = array($image);
+			if($v ['img_ids']){
+					$imgIds = explode(',', $v ['img_ids']);
+					$post_list['data'][$k]['img_ids'] = array_filter($imgIds);
+					
+				}
+			
 		}
 		$this->assign('post_list',$post_list);
 		$this->assign('type',$type);
@@ -581,5 +603,44 @@ class WeibaAction extends BaseAction {
         $this->assign('post', $post);
         $this->display();
     }
+	public function addPostDigg(){
+		$maps['post_id'] = $map['post_id'] = intval($_POST['row_id']);
+		$map['uid'] = $this->mid;
+		$hasdigg = M('weiba_post_digg')->where($map)->find();
+		$weiba = M('weiba_post')->where('post_id='.$map['post_id'])->find();
+		// $is_follow = $this->is_follow($weiba['weiba_id']);
+		// if(!$is_follow){
+		// 	echo 0;exit;
+		// }
+		
+		$map['cTime'] = time();
+		$result = M('weiba_post_digg')->add($map);
+		if( $result && !$hasdigg){
+			$post = M('weiba_post')->where($maps)->find();
+			M('weiba_post')->where($maps)->setField('praise',$post['praise']+1);
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
+	
+	public function delPostDigg () {
+		$maps['post_id'] = $map['post_id'] = intval($_POST['row_id']);
+		$map['uid'] = $this->mid;
+		$hasdigg = M('weiba_post')->where('post_id='.$map['post_id'])->find();
+		// $is_follow = $this->is_follow($hasdigg['weiba_id']);
+		// if(!$is_follow){
+		// 	echo 0;exit;
+		// }
+		
+		$result = M('weiba_post_digg')->where($map)->delete();
+		if ($result) {
+			$post = M('weiba_post')->where($maps)->find();
+			M('weiba_post')->where($maps)->setField('praise',$post['praise']-1);
+			echo 1;
+		} else {
+			echo 0;
+		}
+	}
 
 }

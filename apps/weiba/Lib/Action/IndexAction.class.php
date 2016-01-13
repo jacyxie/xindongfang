@@ -2015,6 +2015,10 @@ class IndexAction extends Action {
 	
 	public function addPostDigg(){
 		$maps['post_id'] = $map['post_id'] = intval($_POST['row_id']);
+		
+		dump( $map['post_id']);
+		dump( $_GET['row_id']);
+		exit;
 		$map['uid'] = $this->mid;
 		$hasdigg = M('weiba_post_digg')->where($map)->find();
 		$weiba = M('weiba_post')->where('post_id='.$map['post_id'])->find();

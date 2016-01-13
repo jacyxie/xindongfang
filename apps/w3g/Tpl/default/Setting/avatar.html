@@ -1,7 +1,8 @@
 <include file="../Public/header" />
 <link href="{:APPS_URL}/w3g/_static/style.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-  body{background-color: #fff;}
+.form-set dl.avatar_dd{ background:#fff; text-align:center}
+.form-set dl.avatar_dd:after{ background:none}
 </style>
 <div id="content">
     <div id="weiba" data-title="修改头像" class="panel" data-selected="true"  data-menu="msgmenu" style="padding:0;">
@@ -19,7 +20,7 @@
     <div class="set-item" id="">
         <form onsubmit="return check()" id="saveAvatar"  action="{:U('w3g/Setting/doSaveAvatar', array('step'=>'upload'))}" method="post" enctype="multipart/form-data">
          <div class="form-set">
-            <dl class="arbg noborder" onclick="">
+            <dl class="arbg noborder avatar_dd" onclick="">
                 <dd style="position:relative;">
                 <php>if($fullpicurl == '') {</php>
                 <img width="200" src="{$user.avatar_middle}">

@@ -15,9 +15,10 @@
         <dt><a href="{:U('w3g/Index/profile', array('uid'=>$vo['user_info']['uid']))}"><img width="50" height="50" src="{$vo.user_info.avatar_small}"></a><php>if($vo['user_info']['group_icon_only']):</php><a href="javascript:;" title="{$vo['user_info']['group_icon_only']['user_group_name']}" class="group_icon_only"><img alt="{$vo['user_info']['group_icon_only']['user_group_name']}" src="{$vo['user_info']['group_icon_only']['user_group_icon_url']}" ></a><php>endif;</php></dt>
         <dd>
           <p class="cont mb5"> <a href="{:U('w3g/Index/profile', array('uid'=>$vo['user_info']['uid']))}">{$vo.user_info.uname}</a>
-            <span class="date">{$vo.ctime|friendlyDate}</span><span class="floor">
+            <span class="floor">
             <php>$page = isset($_REQUEST['p']) ? $_REQUEST['p'] : 1;</php>
             {$k+(($page-1)*$limit)}#</span> </p>
+          <p><span class="date">{$vo.ctime|friendlyDate}</span></p>
           <p class="det-c">{:wapFormatCommentAt($vo['content'])}</p>
           <?php if($vo['attach_info']['attach_type'] == 'weiba_comment_file'): ?>
           <div class="feed_file_list mt10 mb10">
@@ -36,7 +37,7 @@
         </ul>
       </div>
       <?php endif; ?>
-      <p class="info textR"><span> {:W('ReplyDigg', array('row_id'=>$vo['reply_id'], 'digg_count'=>$vo['digg_count'], diggArr=>$diggArr,'widget_appname'=>'weiba','tpl'=>'w3g'))}<i class="vline">|</i><php> $isdel=0;if( ($vo['user_info']['uid'] == $GLOBALS['ts']['mid'] && CheckPermission('weiba_normal','weiba_del_reply')) || in_array($GLOBALS['ts']['mid'],$weiba_admin) || CheckPermission('core_admin','comment_del')){</php><php>$isdel=1;</php><a href="javascript:void(0);" event-node="reply_del" event-args="reply_id={$vo.reply_id}">{:L('PUBLIC_STREAM_DELETE')}</a><php>}</php><php>if(CheckPermission('weiba_normal','weiba_reply') || !$GLOBALS['ts']['mid']){</php><eq name='cancomment' value="1"><php>if($isdel){</php><i class="vline">|</i><php>}</php><a href="javascript:void(0)" event-args='weiba_id={$weiba_id}&post_id={$post_id}&post_uid={$post_uid}&to_reply_id={$vo.reply_id}&to_uid={$vo.uid}&to_comment_uname={$vo.user_info.uname}&feed_id={$feed_id}&comment_id={$vo.comment_id}&addtoend={$addtoend}' 
+      <p class="info textR"><span> {:W('ReplyDigg', array('row_id'=>$vo['reply_id'], 'digg_count'=>$vo['digg_count'], diggArr=>$diggArr,'widget_appname'=>'weiba','tpl'=>'w3g'))} <i class="vline">|</i><php> $isdel=0;if( ($vo['user_info']['uid'] == $GLOBALS['ts']['mid'] && CheckPermission('weiba_normal','weiba_del_reply')) || in_array($GLOBALS['ts']['mid'],$weiba_admin) || CheckPermission('core_admin','comment_del')){</php><php>$isdel=1;</php><a href="javascript:void(0);" event-node="reply_del" event-args="reply_id={$vo.reply_id}">{:L('PUBLIC_STREAM_DELETE')}</a><php>}</php><php>if(CheckPermission('weiba_normal','weiba_reply') || !$GLOBALS['ts']['mid']){</php><eq name='cancomment' value="1"><php>if($isdel){</php><i class="vline">|</i><php>}</php><a href="javascript:void(0)" event-args='weiba_id={$weiba_id}&post_id={$post_id}&post_uid={$post_uid}&to_reply_id={$vo.reply_id}&to_uid={$vo.uid}&to_comment_uname={$vo.user_info.uname}&feed_id={$feed_id}&comment_id={$vo.comment_id}&addtoend={$addtoend}' 
     event-node="reply_reply"><i class="ico-reply"></i>{:L('PUBLIC_STREAM_REPLY')}</a> 
           <!--  <a href="javascript:void(0)" event-args='row_id={$vo.row_id}&weiba_id={$weiba_id}&post_id={$post_id}&post_uid={$post_uid}&to_reply_id={$vo.reply_id}&to_uid={$vo.uid}&to_comment_uname={$vo.user_info.uname}&feed_id={$feed_id}' 
     event-node="reply_reply">{:L('PUBLIC_STREAM_REPLY')}</a> --> 
