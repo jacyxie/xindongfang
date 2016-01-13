@@ -505,6 +505,23 @@ public
     margin-top: 0;
     float: left;
 }
+#favoriteLink a{
+   box-sizing: border-box;
+    background-image: url(../img/sys/unfavorite.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 48px;
+    width: 48px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#favoriteLink a.unfavorite{
+    box-sizing: border-box;
+    background-image: url(../img/sys/favorite.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
 
 #hmp-cancel{

@@ -121,7 +121,7 @@ a.top_stick:hover{background-position:-51px 0;text-decoration:none}*/
 
 .navlist{}
 .navlist ul{ margin-top:1em;}
-.navlist li{ height:3.5em; line-height:3.5em; text-indent:1em; border-top:1px solid #eee; background:#fff url(img/sys/arrowR.png) no-repeat 95% 50%; background-size:0.6em 1em;}
+.navlist li{ height:3.2em; line-height:3.2em; text-indent:1em; border-top:1px solid #eee; background:#fff url(img/sys/arrowR.png) no-repeat 95% 50%; background-size:0.6em 1em;}
 .navlist li a{ display:block; color:#333;}
 .navlist li.no_arrow{ background:#fff; min-height:4.6em; line-height:4.6em;}
 .navlist li.no_arrow img{ border-radius:100%; height:3em; width:3em; margin:0.8em 0.5em 0.8em 0}
@@ -153,21 +153,23 @@ a.top_stick:hover{background-position:-51px 0;text-decoration:none}*/
 .pb .img_list .ico_close{position: absolute;right: 2px;top: 2px;}
 
 .postDetail{}
-.postDetail .pc_title{font-size: 1.2em;color: #000;padding:0 0.75em;line-height: 130%;word-wrap: break-word;word-break: normal;}
-.postDetail .pc_info{padding: 0.75em;overflow: hidden;}
-.postDetail .pc_info dt{float: left;width: 2.5em;height: 2.5em;margin-right: 0.75em;overflow: hidden;}
+.postDetail .pc_title{font-size: 1.4em;color: #000;padding:0 0.75em;line-height: 130%;word-wrap: break-word;word-break: normal; font-weight:bold;}
+.postDetail .pc_info{padding: 1em 0.75em;overflow: hidden;}
+.postDetail .pc_info dt{float: left;width: 3.4em;height: 3.4em;margin-right: 0.75em;overflow: hidden;}
 	.postDetail .pc_info dt img{border-radius: 50%;width: 100%;height: 100%;}
 .postDetail .pc_info dd{color: #666;line-height: 110%;}
 .floor{float: right;font-size: 1em;color: #A0A0A0}
 .postDetail .favorite{font-size:1em; float:right; margin-right:0.75em}
 .postDetail .favorite a{color:#0095E5;}
 .postDetail .favorite .unfavorite{color:#999}
+.postDetail .pc_info dd .name{ padding-top:0.55em}
 .postDetail .pc_info dd .name a{font-size: 1em;color: #666;}
-.postDetail .pc_info dd .info{font-size: 0.75em;color: #8a8a8a;margin-top: 0.75em;}
-.postDetail .pc_info dd .info .llnum{ background:url(images/ico_llan.png) no-repeat right center; background-size:auto 1em;padding-right:20px}
-.postDetail .pc_info dd .info .plnum{ background:url(images/ico_pl.png) no-repeat right center; background-size:auto 1em;padding-right:16px}
+.postDetail .pc_info dd .info{font-size: 0.75em;color: #8a8a8a;margin-top: 0.55em;}
+.postDetail .pc_info dd .info .llnum{ background:url(images/ico_llan.png) no-repeat left center; background-size:auto 1em;padding-left:1.3em; margin-right:0.3em}
+.postDetail .pc_info dd .info .plnum{ background:url(images/ico_pl.png) no-repeat left center; background-size:auto 1em;padding-left:1.3em}
+.postDetail .pc_info dd .info .pinfo{ float:right;}
 
-.postDetail .pc_text{padding: 0.75em;font-size: 1em;color: #444;line-height: 160%;word-wrap: break-word;word-break: normal;text-align:left;}
+.postDetail .pc_text{padding: 0.75em;font-size: 1em;color: #777777;line-height: 160%;word-wrap: break-word;word-break: normal;text-align:left;}
 .postDetail .pc_text img{padding:0.5em 0px;max-width:100%; height:auto;}
 
 .pc_reply{ padding:0 0.75em;}
@@ -253,9 +255,16 @@ a.top_stick:hover{background-position:-51px 0;text-decoration:none}*/
 .weibaPost .re_quote span{display: inline-block;float: left;}
 .weibaPost .re_quote .t{padding-left: 40px;}
 
-.weibaPost .pure-form .ts-text,.weibaPost .pure-form .ts-select{ width:100%; box-sizing:border-box; border-radius:0; border:none; padding:0.9em; border-bottom:1px solid #eee}
-.weibaPost .pure-form .ts-select{ padding:0.7em; color:#666}
-.weibaPost .pure-form .ts-textarea{ margin:0 !important}
+.weibaPost .pure-form .ts-text,.weibaPost .pure-form .ts-select{ width:100%; box-sizing:border-box; border-radius:0; border:none; padding:1em; border-bottom:1px solid #eee}
+.weibaPost .pure-form .ts-text{ margin-bottom:0;}
+.weibaPost .ts-select{width:100%; height:100%; border:none; background:none;}
+.weibaPost .pure-form .ts-textarea{ margin:0 !important;padding:1em; border:none;}
+.weibaPost .ts-footer{ background:#fff; border:none; height:auto; padding:1em}
+.weibaPost .ts-footer a{ height:80px; width:80px;}
+.weibaPost .ts-footer .fa-btn-picture{ background:#fff url(img/sys/new_add.png); height:80px; width:80px; background-size:cover;}
+.weibaPost .upload_img_wrap{}
+.weibaPost .upload_img_wrap #ts-upload-img-box{ display:inline; padding:0;}
+.weibaPost #ts-upload-img-box>div{ width:80px; height:80px; background-size:100% 100%; margin:0 0.3em 0.3em 0}
 
 .searchMain{padding: 70px 30px;}
 .searchMain .searchbox{width: 100%;margin: 0 auto;height: 34px;border: 1px solid #cdcdcd;border-radius: 3px;background-color: #eeeeee;}

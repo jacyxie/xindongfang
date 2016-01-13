@@ -23,32 +23,44 @@
       <div class="weibaPost">
       	<form method="post" action="{:U('w3g/Weiba/doPost')}" id="doWeibaPost">
         <php>if(empty($weiba_id)):</php>
-          <div class="pure-form send_box">
-            <select name="weiba_id" id="weiba_id" class="ts-select">
-            <option value="0">请选择微吧</option>
-            <volist name="weibacate" id="vo">
-            <php>if(empty($vo['weibalist']))continue;</php>
-            <optgroup label="{$vo.name}" disabled>{$vo.name}</optgroup>
-                <volist name="vo.weibalist" id="wb">
-                <option value="{$wb.weiba_id}">{$wb.weiba_name}</option>
-                </volist>
-            </volist>
-            </select>
+           <div class="navlist" style="margin-bottom:1em">
+              <ul>
+                 <li>
+                 	<select style="color:#03b394" name="weiba_id" id="weiba_id" class="ts-select">
+                    <option value="0">选择模块</option>
+                    <volist name="weibacate" id="vo">
+                    <php>if(empty($vo['weibalist']))continue;</php>
+                    <optgroup label="{$vo.name}" disabled>{$vo.name}</optgroup>
+                        <volist name="vo.weibalist" id="wb">
+                        <option value="{$wb.weiba_id}">{$wb.weiba_name}</option>
+                        </volist>
+                    </volist>
+                    </select>
+                 </li>
+             </ul>
           </div>
         <php>else:</php>
           <input name="weiba_id" id="weiba_id" type="hidden" value="{$weiba_id}" />
         <php>endif;</php>
           <div class="pure-form send_box">
-            <input type="text" id="title" name="title" class="ts-text" placeholder="输入帖子标题">
+            <input type="text" id="title" name="title" class="ts-text" placeholder="填写标题，4-25个字">
           </div>
           <div class="pure-form send_box">
-          <textarea class="ts-textarea" name="content" id="post-content" rows="4" placeholder="输入帖子内容"></textarea>
+          <textarea class="ts-textarea" name="content" id="post-content" rows="4" placeholder="填写文本，10-700个字"></textarea>
           </div>
           <div class="ts-footer">
-              <!-- 表情 --><a class="icon facelistbutton ts-listen" data-listen="weibo-facelist-show"><i class="fa-btn fa-btn-smile"></i></a>
-              <!-- 图片 --><a class="icon imgbutton ts-listen" data-listen="weibo-upload-img" data-for="ts-upload-img-box" id="new-weibo-upload"><i class="fa-btn fa-btn-picture"></i></a>
+              <!-- 表情 -->
+              <!--<a class="icon facelistbutton ts-listen" data-listen="weibo-facelist-show"><i class="fa-btn fa-btn-smile"></i></a>
+              -->
+              <!-- 图片 -->
+              <div class="upload_img_wrap">
+                  <div id="ts-upload-img-box">
+                    
+                  </div>
+                  <a class="icon imgbutton ts-listen" data-listen="weibo-upload-img" data-for="ts-upload-img-box" id="new-weibo-upload"><i class="fa-btn fa-btn-picture"></i></a>
+              </div>
           </div>
-          <div id="ts-upload-img-box"></div>
+          
         </form>
       </div>
     </div>
@@ -67,7 +79,13 @@ function doWeibaPost(){
 		$.ui.showMask("请选择微吧", true);
 	}else if(!title){
 		$('#title').focus();
+	}else if(title.length>25 || title.length<4){
+		$.ui.showMask("标题限制在4-25个字", true);
+		$('#title').focus();
 	}else if(!content){
+		$('#post-content').focus();
+	}else if(content.length>700 || content.length<10){
+		$.ui.showMask("内容限制在10-700个字", true);
 		$('#post-content').focus();
 	}else{
 		$.post(U('w3g/Weiba/doPost'), {

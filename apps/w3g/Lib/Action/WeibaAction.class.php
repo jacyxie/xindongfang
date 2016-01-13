@@ -7,9 +7,9 @@ class WeibaAction extends BaseAction {
 
 		$indexList = D('weiba_post')->where('is_del=0 AND top=2')->order('is_index_time desc' )->findAll();
 		foreach($indexList as &$v){
-			$imgList = matchImages($v['content']);
-			if($imgList){
-				$v['index_img_url'] = $imgList[0];
+			$imgIds = explode(',', $_POST['imageIds']);
+			if($imgIds){
+				$v['index_img_url'] = getImageUrlByAttachId($imgIds[0]);	
 			}
 		}
 		$this->assign ('indexList', $indexList);
@@ -135,7 +135,9 @@ class WeibaAction extends BaseAction {
 				$post_detail ['attachInfo'] [$ak] = $_attach;
 			}
 		}
-
+		$imgIds = explode(',', $data ['img_ids']);
+		$post_detail ['img_ids'] = $imgIds;
+		
 		$post_detail ['content'] = html_entity_decode ( $post_detail ['content'], ENT_QUOTES, 'UTF-8' );
 		
 		$this->assign ( 'post_detail', $post_detail );
@@ -307,6 +309,8 @@ class WeibaAction extends BaseAction {
 		$data ['last_reply_uid'] = $this->mid;
 		$data ['last_reply_time'] = $data ['post_time'];
 		$data ['tag_id'] = intval ( $_POST ['tag_id'] );
+		$data ['img_ids'] = $_POST['imageIds'];
+		/*
 		$imgIds = explode(',', $_POST['imageIds']);
 		foreach($imgIds as $imgId){
 			$imgId = intval($imgId);
@@ -317,6 +321,7 @@ class WeibaAction extends BaseAction {
 				}
 			}
 		}
+		*/
 		$res = D ( 'weiba_post' )->add ( $data );
 		if ($res) {
 			refreshWeibaCount ( $data ['weiba_id'] );
