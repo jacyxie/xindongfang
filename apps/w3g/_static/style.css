@@ -171,6 +171,17 @@ a.top_stick:hover{background-position:-51px 0;text-decoration:none}*/
 
 .postDetail .pc_text{padding: 0.75em;font-size: 1em;color: #777777;line-height: 160%;word-wrap: break-word;word-break: normal;text-align:left;}
 .postDetail .pc_text img{padding:0.5em 0px;max-width:100%; height:auto;}
+.ninepic_list{ overflow:hidden; zoom:1; margin:10px -1.16%;}
+.ninepic_list img{ width:32%; float:left; margin:1.16%; padding:0;}
+.postDetail .pc_text .ninepic_list img{width:31%; float:left; margin:1.16%; padding:0;}
+
+.weiba_detail_bar{ position:fixed; bottom:0; right:0; left:0; height:3em; display:-webkit-box; background:#fafafa; border-top:1px solid #ddd; z-index:10000; display:none;}
+.weiba_detail_bar a{ -webkit-box-flex:1; display:block; text-align:center;}
+.weiba_detail_bar a i{ display:inline-block; height:3em; width:3em;}
+.weiba_detail_bar a i.share{ background:url(img/sys/ic_share.png) no-repeat center center; background-size:1.2em;}
+.weiba_detail_bar a i.comment{ background:url(img/sys/ic_comment.png) no-repeat center center; background-size:1.2em;}
+.weiba_detail_bar a i.zan{ background:url(img/sys/ic_zan.png) no-repeat center center; background-size:1.2em;}
+.weiba_detail_bar a i.iszan{ background:url(img/sys/ic_zan2.png) no-repeat center center; background-size:1.2em;}
 
 .pc_reply{ padding:0 0.75em;}
 .pc_reply .weiba-sort{ height:3em; line-height:3em; border-top:1px solid #eee;}

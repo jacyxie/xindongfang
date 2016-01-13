@@ -68,7 +68,6 @@ function closeBox(){
 }
 </script>
 
-
 <div id="content" style="background:#fff">
     <div id="weiba" data-title="{$weiba_name|getShort=6,'...'}" class="panel" data-selected="true"  data-menu="msgmenu" style="padding:0; background:#fff">
         <header>
@@ -117,10 +116,13 @@ function closeBox(){
       <div class="pc_title">{$post_detail.title}</div>
       <div class="pc_text content_imgs" id="detail_content_img" >
       	{$post_detail.content|bbcodewap}
-      	<volist name="post_detail['imgs']" id="vo">
-            <img src="{$vo}"/>
-        </volist>
-       
+        <notempty name="post_detail['img_ids']">
+        <div class="ninepic_list">
+            <volist name="post_detail['img_ids']" id="vo">
+                <img src="{:getImageUrlByAttachId($vo,200,200,true)}"/>
+            </volist>
+        </div>
+       </notempty>
       </div>
       <div class="pc_reply">
         {:W('WeibaReply',array('tpl'=>'w3g', 'weiba_id'=>$post_detail['weiba_id'], 'post_id'=>$post_detail['post_id'], 'post_uid'=>$mid, 'feed_id'=>$post_detail['feed_id'], 'limit'=>'20', 'order'=>'DESC', 'addtoend'=>1,'type'=>$type))}
@@ -130,6 +132,9 @@ function closeBox(){
 
 <!--大图相册的效果-->
 <style type="text/css">
+#topcontrol{ display:none;}
+.weiba_detail_bar{ display:-webkit-box;}
+#content{ margin-bottom:3em;}
 /*大图相册的效果*/
 .device {
   display:none;position: absolute;top: 0px;left: 0px;width: 100%;height: 100%;background-color: #333;z-index: 9;
